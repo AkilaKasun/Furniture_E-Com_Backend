@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from app.db import  init_model
-
+from app.middleweare.cores import setup_cors
 
 from app.routers.user_routes import user_router
 
@@ -22,6 +22,9 @@ app = FastAPI(
         lifespan=lifespan, #call init model and createtabase models
 
 )
+
+# Call the separate middleware function
+setup_cors(app)
 
 app.include_router(user_router)
 
